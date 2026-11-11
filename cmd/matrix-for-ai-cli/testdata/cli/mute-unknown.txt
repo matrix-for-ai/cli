@@ -1,0 +1,10 @@
+# an MXID nothing knows
+run mute @nobody:example.org
+
+error not_here
+
+== exit
+1
+== stdout
+== stderr
+@nobody:example.org is not set up here (identity create, or webhook create); identity list shows the ones that are

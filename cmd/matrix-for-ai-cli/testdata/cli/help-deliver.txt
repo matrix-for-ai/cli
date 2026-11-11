@@ -1,0 +1,17 @@
+run deliver --help
+
+== exit
+0
+== stdout
+deliver --id ID [--wait D] [--reply-if-stopped] [--command C]
+
+From a handler: hand the notice in NOTICE_* to the live agent listening as ID, through the
+socket its adapter keeps open (listen). ID is A-Z, a-z, 0-9, _ and -, up to 128.
+Exit 3: nobody listening there. Exit 1: the session got it but did not take it.
+  --wait               keep trying, every 2 s, this long (a session just launched)
+  --reply-if-stopped   if the session refuses it (stopped), say so in the room once
+  --command            have the session run C (a-z, 0-9, _ and -), whatever it means to its
+                       harness, instead of being told
+
+  matrix-for-ai-cli deliver --id "$SESSION" --reply-if-stopped || exit 1
+== stderr

@@ -1,0 +1,11 @@
+# an argument voices does not take
+run voices extra
+
+error usage
+
+== exit
+2
+== stdout
+== stderr
+voices: unexpected "extra"
+see: matrix-for-ai-cli voices --help

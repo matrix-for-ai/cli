@@ -1,0 +1,9 @@
+run webhook
+error usage
+
+== exit
+2
+== stdout
+== stderr
+webhook: missing subcommand: create, delete or list
+see: matrix-for-ai-cli webhook --help

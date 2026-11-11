@@ -1,0 +1,11 @@
+run serve --help
+
+== exit
+0
+== stdout
+serve [--idle 15m]
+
+The receiver of the appservice's notices, on the systemd socket or on the config's address (see
+service). With a socket it exits after --idle without notices, unless retries or a timed mute
+are due; --idle 0 never exits.
+== stderr

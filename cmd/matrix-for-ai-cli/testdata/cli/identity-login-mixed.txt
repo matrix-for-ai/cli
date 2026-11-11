@@ -1,0 +1,9 @@
+run identity login --token-file $WORK/nova.env --base $BOT
+error usage
+
+== exit
+2
+== stdout
+== stderr
+identity login: --token-file goes alone; --base and --output are for a token on stdin
+see: matrix-for-ai-cli identity --help

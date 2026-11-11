@@ -1,0 +1,9 @@
+run listen --id 'a/b'
+error usage
+
+== exit
+2
+== stdout
+== stderr
+listen: --id: "a/b" is not an ID (A-Z, a-z, 0-9, _ and -, up to 128)
+see: matrix-for-ai-cli listen --help

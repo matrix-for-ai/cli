@@ -1,0 +1,9 @@
+run identity login --base $BOT
+error usage
+
+== exit
+2
+== stdout
+== stderr
+identity login: no token on stdin
+see: matrix-for-ai-cli identity --help

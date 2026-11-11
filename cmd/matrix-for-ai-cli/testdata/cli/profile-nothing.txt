@@ -1,0 +1,9 @@
+run profile set
+error usage
+
+== exit
+2
+== stdout
+== stderr
+profile set: nothing to set: --name, --avatar, --voice or --transcribe-audio
+see: matrix-for-ai-cli profile --help

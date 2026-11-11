@@ -1,0 +1,6 @@
+{
+  "name": "matrix-for-ai-listener",
+  "version": "1.0.0",
+  "author": { "name": "Rafa Capilla" },
+  "description": "matrix-for-ai in a Claude Code session: a door that turns what an entity's handler delivers to this session (matrix-for-ai-cli deliver --id) into a prompt, and a skill that tells it matrix-for-ai-cli exists. No configuration."
+}

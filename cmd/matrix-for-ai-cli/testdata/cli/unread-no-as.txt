@@ -1,0 +1,11 @@
+# no --as and no MATRIX_AI_MXID
+run unread
+env MATRIX_AI_MXID=
+error usage
+
+== exit
+2
+== stdout
+== stderr
+--as MXID is required (or MATRIX_AI_MXID in the environment)
+see: matrix-for-ai-cli --help

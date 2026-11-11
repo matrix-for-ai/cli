@@ -1,0 +1,9 @@
+run read '!notmine:example.org'
+error appservice
+
+== exit
+1
+== stdout
+== stderr
+not a member of !notmine:example.org (not_member)
+you are not in that room (channel list shows yours)

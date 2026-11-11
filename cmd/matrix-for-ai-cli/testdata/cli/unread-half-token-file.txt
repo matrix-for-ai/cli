@@ -1,0 +1,9 @@
+# a token file with no token
+run unread --as @ai_half_ab12cd:example.org
+error token_file
+
+== exit
+1
+== stdout
+== stderr
+$WORK/half.env: MATRIX_AI_BASE or MATRIX_AI_TOKEN missing

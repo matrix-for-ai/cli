@@ -1,0 +1,26 @@
+# -h on a command
+run read -h
+
+== exit
+0
+== stdout
+read [--as MXID] [--peek] [--extra] ROOM
+read [--as MXID] [--extra] [--limit N] --latest|--before EVENT|--after EVENT ROOM
+
+Read what is unread in ROOM, oldest first, and mark it read; or walk its history, which marks
+nothing read. Prints room, events and has_more, true when there is more than it printed. Each
+event has an event_id, a type (text, image, audio, video, file, poll, poll_end, location,
+membership, undecryptable, malformed) and its content; one that answers another has reply_to.
+Undecryptable ones stay unread until they can be read; a malformed one breaks the Matrix spec
+and has an empty content. If marking it read fails, what was read is still printed and it
+exits 1: from where it failed, it stays unread.
+  --peek     do not mark it read (up to 200 events)
+  --extra    media bytes (base64) and poll results
+  --latest   the latest events, yours included
+  --before   the events right before EVENT; the next page back is --before the first one
+  --after    the events right after EVENT; the next page on is --after the last one
+  --limit    events per history page, 1 to 200 (default 50)
+
+  matrix-for-ai-cli read '!abc:example.org'
+  matrix-for-ai-cli read --latest --limit 10 '!abc:example.org'
+== stderr

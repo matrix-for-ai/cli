@@ -1,0 +1,10 @@
+file other.env MATRIX_AI_BASE=$BOT/elsewhere\nMATRIX_AI_TOKEN=good\nMATRIX_AI_MXID=@ai_nova_ab12cd:example.org\n
+run identity login --token-file $WORK/other.env
+error usage
+
+== exit
+2
+== stdout
+== stderr
+identity login: @ai_nova_ab12cd:example.org is set up here with the appservice at $BOT: --force to move it to $BOT/elsewhere
+see: matrix-for-ai-cli identity --help

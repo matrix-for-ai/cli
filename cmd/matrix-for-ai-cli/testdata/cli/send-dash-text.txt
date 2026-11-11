@@ -1,0 +1,9 @@
+# text that starts with - after ROOM
+run send '!r:example.org' -x
+
+== exit
+2
+== stdout
+== stderr
+send: unknown flag --x (text that starts with - goes after --, or on stdin: -)
+see: matrix-for-ai-cli send --help

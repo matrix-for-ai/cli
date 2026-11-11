@@ -1,0 +1,9 @@
+run send '!r:example.org'
+error usage
+
+== exit
+2
+== stdout
+== stderr
+send: missing TEXT
+see: matrix-for-ai-cli send --help

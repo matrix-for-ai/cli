@@ -1,0 +1,9 @@
+# the appservice creates it but returns nothing
+run identity create --base $BOT mute
+error appservice_answer
+
+== exit
+1
+== stdout
+== stderr
+the appservice returned no mxid or token

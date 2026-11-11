@@ -1,0 +1,11 @@
+run identity list
+
+== exit
+0
+== stdout
+  @ai_dead_ab12cd:example.org	no webhook	$WORK/dead.env
+  @ai_gone_ab12cd:example.org	no webhook	$WORK/gone.env
+  @ai_half_ab12cd:example.org	no webhook	$WORK/half.env
+* @ai_nova_ab12cd:example.org	no webhook	$WORK/nova.env
+  @ai_twin_ab12cd:example.org	no webhook	$WORK/nova.env
+== stderr

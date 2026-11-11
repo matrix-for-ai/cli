@@ -1,0 +1,10 @@
+# no subcommand
+run profile
+error usage
+
+== exit
+2
+== stdout
+== stderr
+profile: missing subcommand: set
+see: matrix-for-ai-cli profile --help

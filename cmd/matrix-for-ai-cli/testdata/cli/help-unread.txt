@@ -1,0 +1,11 @@
+run unread --help
+
+== exit
+0
+== stdout
+unread [--as MXID]
+
+The channels with something unread for you: room, unread, and who wrote and when.
+
+  matrix-for-ai-cli unread
+== stderr

@@ -1,0 +1,9 @@
+# the appservice's limits: its detail says when to retry, and the client does not retry by itself
+run read '!busy:example.org'
+error appservice
+
+== exit
+1
+== stdout
+== stderr
+at most 300 calls per minute; retry in 30s (rate_limited)

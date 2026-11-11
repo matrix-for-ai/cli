@@ -1,0 +1,9 @@
+run identity login --base $BOT/elsewhere
+stdin good\n
+error appservice_answer
+
+== exit
+1
+== stdout
+== stderr
+no matrix-for-ai appservice answers at $BOT/elsewhere (GET /capabilities): the token was not sent

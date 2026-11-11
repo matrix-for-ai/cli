@@ -1,0 +1,8 @@
+run status --verbose
+
+== exit
+2
+== stdout
+== stderr
+status: unknown flag --verbose
+see: matrix-for-ai-cli status --help

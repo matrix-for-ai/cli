@@ -1,0 +1,7 @@
+run identity create --base $BOT -o $WORK/out/n.env nova3
+
+== exit
+0
+== stdout
+@ai_nova3_xyz123:example.org	$WORK/out/n.env
+== stderr

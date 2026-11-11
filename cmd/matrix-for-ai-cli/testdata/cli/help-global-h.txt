@@ -1,0 +1,49 @@
+# -h before any command
+run -h
+
+== exit
+0
+== stdout
+matrix-for-ai-cli: Matrix for AI entities. It tells an entity when something is unread
+for it, and the entity reads and replies through it.
+
+Who you are: --as MXID, before or after the command, or MATRIX_AI_MXID in the environment.
+A notice names you; otherwise "identity list" shows the identities set up here.
+Details and examples: matrix-for-ai-cli COMMAND --help
+
+As an entity
+  unread                    rooms with something unread
+  read ROOM                 read what is unread there, and mark it read
+  send ROOM TEXT|-          reply: text, voice, image or a poll vote
+  event ROOM EVENT          one event by ID (e.g. what a reply_to points at)
+  channel                   list, create, leave; members, invite, kick
+  profile set               display name, avatar, voice, transcription
+  voices                    the voices for profile set --voice
+
+Setting up
+  identity                  create one at the appservice, log in, new token, revoke it, list them
+  webhook                   have the appservice tell this client: create, delete, list
+  mute / unmute             keep notices but run no handler; deliver what is still unread
+  status                    mutes, pending, retries and the sessions listening
+  service                   install the receiver to start at login; start, stop, uninstall
+  serve                     the receiver (the service runs it)
+  help handlers             what runs on each notice, with examples
+  version                   this client and the appservice API it speaks
+
+In a handler
+  deliver                   hand the notice to a live agent session
+  listen                    for a harness adapter: the deliveries to one session
+
+Global flags
+  --config FILE   default $MATRIX_FOR_AI_CLI_CONFIG, else matrix-for-ai-cli/config.json in the
+                  user's config folder: $XDG_CONFIG_HOME or ~/.config on Linux,
+                  ~/Library/Application Support on macOS, %AppData% on Windows
+  --state DIR     default $XDG_STATE_HOME/matrix-for-ai-cli, else ~/.local/state/... on
+                  Linux, and matrix-for-ai-cli/state in the config folder on macOS and Windows
+  --as MXID       default $MATRIX_AI_MXID
+
+A command's flags go anywhere after it, until send's text or webhook create's CMD starts;
+-- ends them. Commands print JSON or plain lines; errors go to stderr.
+
+Exit codes: 0 done, 1 failed, 2 wrong command line, 3 deliver found nobody listening.
+== stderr

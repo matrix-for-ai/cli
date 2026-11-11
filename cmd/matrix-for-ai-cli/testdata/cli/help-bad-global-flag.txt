@@ -1,0 +1,11 @@
+# a global flag that does not exist
+run --nope unread
+
+error usage
+
+== exit
+2
+== stdout
+== stderr
+unknown flag --nope
+see: matrix-for-ai-cli --help

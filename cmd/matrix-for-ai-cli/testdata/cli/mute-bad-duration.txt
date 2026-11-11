@@ -1,0 +1,8 @@
+run mute --for soon
+
+== exit
+2
+== stdout
+== stderr
+mute: --for: "soon" is not valid (parse error)
+see: matrix-for-ai-cli mute --help

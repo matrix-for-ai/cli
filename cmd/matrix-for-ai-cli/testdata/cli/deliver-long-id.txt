@@ -1,0 +1,11 @@
+# an id so long its socket path does not fit
+run deliver --id xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+env NOTICE_IDENTITY=@ai_nova_ab12cd:example.org
+env NOTICE_ROOM=!r:example.org
+error system
+
+== exit
+1
+== stdout
+== stderr
+socket path longer than 100 bytes: $WORK/run/matrix-for-ai-cli/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.sock

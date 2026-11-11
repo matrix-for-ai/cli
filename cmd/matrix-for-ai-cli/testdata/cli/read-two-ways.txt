@@ -1,0 +1,9 @@
+run read --latest --after '$x' '!r:example.org'
+error usage
+
+== exit
+2
+== stdout
+== stderr
+read: --latest, --before and --after go alone
+see: matrix-for-ai-cli read --help

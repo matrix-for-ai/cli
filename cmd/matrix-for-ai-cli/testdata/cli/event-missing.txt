@@ -1,0 +1,9 @@
+run event '!r:example.org'
+error usage
+
+== exit
+2
+== stdout
+== stderr
+event: missing EVENT
+see: matrix-for-ai-cli event --help

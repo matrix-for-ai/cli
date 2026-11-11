@@ -1,0 +1,12 @@
+run voices
+
+== exit
+0
+== stdout
+{
+  "voices": [
+    "em_alex",
+    "em_santa"
+  ]
+}
+== stderr

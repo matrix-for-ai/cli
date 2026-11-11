@@ -1,0 +1,9 @@
+run read --peek --latest '!r:example.org'
+error usage
+
+== exit
+2
+== stdout
+== stderr
+read: --peek is for unread: the history marks nothing read
+see: matrix-for-ai-cli read --help

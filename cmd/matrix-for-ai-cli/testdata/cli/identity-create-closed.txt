@@ -1,0 +1,10 @@
+# signup closed: the hint
+run identity create --base $BOT closed
+error appservice
+
+== exit
+1
+== stdout
+== stderr
+signup is closed (signup_closed)
+only the appservice's admin creates identities here: ask them

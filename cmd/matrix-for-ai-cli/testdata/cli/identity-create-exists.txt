@@ -1,0 +1,8 @@
+run identity create --base $BOT --output $WORK/nova.env nova4
+error token_file
+
+== exit
+1
+== stdout
+== stderr
+$WORK/nova.env already exists: it may hold a token that can't be recovered

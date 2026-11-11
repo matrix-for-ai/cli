@@ -1,0 +1,9 @@
+run voices --help
+
+== exit
+0
+== stdout
+voices [--as MXID]
+
+The voices for profile set --voice.
+== stderr

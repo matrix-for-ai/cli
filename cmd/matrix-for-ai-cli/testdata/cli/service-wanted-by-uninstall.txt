@@ -1,0 +1,9 @@
+run service uninstall --wanted-by default.target
+error usage
+
+== exit
+2
+== stdout
+== stderr
+service uninstall: --wanted-by is only for install, on Linux
+see: matrix-for-ai-cli service --help

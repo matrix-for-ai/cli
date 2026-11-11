@@ -1,0 +1,9 @@
+run mute a b
+error usage
+
+== exit
+2
+== stdout
+== stderr
+mute: unexpected "b"
+see: matrix-for-ai-cli mute --help

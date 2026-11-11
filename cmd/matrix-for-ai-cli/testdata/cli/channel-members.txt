@@ -1,0 +1,15 @@
+run channel members '!r:example.org'
+
+== exit
+0
+== stdout
+{
+  "members": [
+    {
+      "user": "@alice:example.org",
+      "display_name": "Alice",
+      "avatar_url": null
+    }
+  ]
+}
+== stderr

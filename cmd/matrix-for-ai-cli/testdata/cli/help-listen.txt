@@ -1,0 +1,12 @@
+run listen --help
+
+== exit
+0
+== stdout
+listen --id ID
+
+For a harness adapter: keep the socket for ID (in $XDG_RUNTIME_DIR/matrix-for-ai-cli, else
+the temp folder) and print one JSON line per delivery, with identity, room, sender, unread,
+reason, and reply_if_stopped and command when deliver set them. A newer listener for the same
+ID takes over.
+== stderr

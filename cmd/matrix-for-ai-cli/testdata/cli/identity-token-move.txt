@@ -1,0 +1,9 @@
+run identity token --base $BOT/elsewhere @ai_nova_ab12cd:example.org
+error usage
+
+== exit
+2
+== stdout
+== stderr
+identity token: @ai_nova_ab12cd:example.org is set up here with the appservice at $BOT: to move it, identity login --force
+see: matrix-for-ai-cli identity --help

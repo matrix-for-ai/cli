@@ -1,0 +1,9 @@
+run webhook delete
+error usage
+
+== exit
+2
+== stdout
+== stderr
+webhook delete: missing MXID
+see: matrix-for-ai-cli webhook --help

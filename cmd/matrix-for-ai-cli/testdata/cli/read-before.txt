@@ -1,0 +1,22 @@
+run read --before '$x' '!r:example.org'
+
+== exit
+0
+== stdout
+{
+  "events": [
+    {
+      "event_id": "$h",
+      "room": "!r:example.org",
+      "sender": "@alice:example.org",
+      "ts": 1,
+      "type": "text",
+      "content": {
+        "text": "before=%24x\u0026limit=50"
+      }
+    }
+  ],
+  "has_more": true,
+  "room": "!r:example.org"
+}
+== stderr

@@ -1,0 +1,15 @@
+run channel create --name Team --plain @a:example.org @b:example.org
+
+== exit
+0
+== stdout
+{
+  "room": "!new:example.org",
+  "name": null,
+  "topic": null,
+  "direct": false,
+  "public": false,
+  "encrypted": true,
+  "invited": []
+}
+== stderr

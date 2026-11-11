@@ -1,0 +1,9 @@
+run profile set --voice em_alex=lots
+error usage
+
+== exit
+2
+== stdout
+== stderr
+profile set: --voice: "em_alex=lots" is not NAME=WEIGHT
+see: matrix-for-ai-cli profile --help

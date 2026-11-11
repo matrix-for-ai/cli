@@ -1,0 +1,9 @@
+run status --help
+
+== exit
+0
+== stdout
+status
+
+What is muted, what is pending per identity, the retries due and the sessions listening.
+== stderr

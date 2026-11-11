@@ -1,0 +1,22 @@
+run read --latest --limit 10 '!r:example.org'
+
+== exit
+0
+== stdout
+{
+  "events": [
+    {
+      "event_id": "$h",
+      "room": "!r:example.org",
+      "sender": "@alice:example.org",
+      "ts": 1,
+      "type": "text",
+      "content": {
+        "text": "limit=10"
+      }
+    }
+  ],
+  "has_more": true,
+  "room": "!r:example.org"
+}
+== stderr

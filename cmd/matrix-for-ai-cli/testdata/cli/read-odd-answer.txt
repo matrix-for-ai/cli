@@ -1,0 +1,9 @@
+# the appservice answers without messages
+run read '!odd:example.org'
+error appservice_answer
+
+== exit
+1
+== stdout
+== stderr
+the appservice's answer to GET /channels/!odd:example.org/events has no events

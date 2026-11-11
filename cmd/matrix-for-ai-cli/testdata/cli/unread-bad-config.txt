@@ -1,0 +1,10 @@
+# a config that is not JSON
+file config.json {nope
+run unread
+error config
+
+== exit
+1
+== stdout
+== stderr
+$WORK/config.json: invalid character 'n' looking for beginning of object key string

@@ -1,0 +1,7 @@
+run mute
+
+== exit
+0
+== stdout
+everyone muted until unmute
+== stderr

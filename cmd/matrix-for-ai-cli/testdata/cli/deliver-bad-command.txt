@@ -1,0 +1,11 @@
+run deliver --id s1 --command 'rm -rf'
+env NOTICE_IDENTITY=@ai_nova_ab12cd:example.org
+env NOTICE_ROOM=!r:example.org
+error usage
+
+== exit
+2
+== stdout
+== stderr
+deliver: --command: "rm -rf" is not a command name (a-z, 0-9, _ and -, up to 64)
+see: matrix-for-ai-cli deliver --help

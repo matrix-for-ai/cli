@@ -1,0 +1,13 @@
+# an appservice of another major: the command goes on, and says so once
+run read '!future:example.org'
+
+== exit
+0
+== stdout
+{
+  "events": [],
+  "has_more": false,
+  "room": "!future:example.org"
+}
+== stderr
+warning: the appservice speaks API v4 and this client v1: update whichever is behind

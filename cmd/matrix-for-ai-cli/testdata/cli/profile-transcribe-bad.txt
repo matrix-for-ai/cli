@@ -1,0 +1,9 @@
+run profile set --transcribe-audio yes
+error usage
+
+== exit
+2
+== stdout
+== stderr
+profile set: --transcribe-audio: "yes" is not true or false
+see: matrix-for-ai-cli profile --help

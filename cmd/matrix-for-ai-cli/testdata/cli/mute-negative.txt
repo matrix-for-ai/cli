@@ -1,0 +1,9 @@
+run mute --for -1h
+error usage
+
+== exit
+2
+== stdout
+== stderr
+mute: --for must be positive
+see: matrix-for-ai-cli mute --help

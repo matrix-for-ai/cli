@@ -1,0 +1,9 @@
+# --localpart is gone
+run identity create --base $BOT --localpart x nova6
+
+== exit
+2
+== stdout
+== stderr
+identity create: unknown flag --localpart
+see: matrix-for-ai-cli identity --help

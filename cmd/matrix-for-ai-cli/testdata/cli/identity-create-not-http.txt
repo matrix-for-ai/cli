@@ -1,0 +1,9 @@
+run identity create --base ftp://192.0.2.10/ai nova
+error usage
+
+== exit
+2
+== stdout
+== stderr
+identity create: the appservice's URL ftp://192.0.2.10/ai is not http(s)
+see: matrix-for-ai-cli identity --help

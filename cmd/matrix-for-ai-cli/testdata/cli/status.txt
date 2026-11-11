@@ -1,0 +1,24 @@
+run status
+
+== exit
+0
+== stdout
+not muted
+
+@ai_dead_ab12cd:example.org
+  nothing pending
+
+@ai_gone_ab12cd:example.org
+  nothing pending
+
+@ai_half_ab12cd:example.org
+  nothing pending
+
+@ai_nova_ab12cd:example.org
+  nothing pending
+
+@ai_twin_ab12cd:example.org
+  nothing pending
+
+sessions listening: 0
+== stderr

@@ -1,0 +1,9 @@
+run identity revoke --base $BOT @ai_revoked_ab12cd:example.org
+env MATRIX_AI_ADMIN_TOKEN=admin
+error appservice
+
+== exit
+1
+== stdout
+== stderr
+the identity has no token (token_not_found)

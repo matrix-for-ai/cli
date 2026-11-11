@@ -1,0 +1,10 @@
+run identity login --base http://192.0.2.10/ai
+stdin good\n
+error usage
+
+== exit
+2
+== stdout
+== stderr
+identity login: the appservice's URL http://192.0.2.10/ai is plain http, and the token would travel unencrypted: --insecure if that is what you want
+see: matrix-for-ai-cli identity --help

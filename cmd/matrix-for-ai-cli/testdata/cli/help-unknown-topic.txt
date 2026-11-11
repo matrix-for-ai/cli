@@ -1,0 +1,11 @@
+# help for something that is not a command
+run help frob
+
+error usage
+
+== exit
+2
+== stdout
+== stderr
+unknown command "frob"
+see: matrix-for-ai-cli --help

@@ -1,0 +1,25 @@
+# read, but the receipt fails
+run read '!noreceipt:example.org'
+error partial
+
+== exit
+1
+== stdout
+{
+  "events": [
+    {
+      "event_id": "$e",
+      "room": "!r:example.org",
+      "sender": "@alice:example.org",
+      "ts": 1,
+      "type": "text",
+      "content": {
+        "text": "hi"
+      }
+    }
+  ],
+  "has_more": false,
+  "room": "!noreceipt:example.org"
+}
+== stderr
+printed, but not marked read: the homeserver failed (homeserver_error)

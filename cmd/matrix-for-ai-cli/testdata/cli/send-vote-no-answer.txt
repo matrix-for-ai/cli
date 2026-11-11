@@ -1,0 +1,9 @@
+run send --vote '$poll' '!r:example.org'
+error usage
+
+== exit
+2
+== stdout
+== stderr
+send: missing ANSWER
+see: matrix-for-ai-cli send --help

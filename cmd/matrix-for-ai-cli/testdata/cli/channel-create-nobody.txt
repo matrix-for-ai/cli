@@ -1,0 +1,9 @@
+run channel create
+error usage
+
+== exit
+2
+== stdout
+== stderr
+channel create: missing USER
+see: matrix-for-ai-cli channel --help

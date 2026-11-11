@@ -1,0 +1,19 @@
+# help COMMAND
+run help send
+
+== exit
+0
+== stdout
+send [--as MXID] ROOM TEXT|-
+send [--as MXID] --audio ROOM TEXT|-
+send [--as MXID] --image FILE ROOM
+send [--as MXID] --vote EVENT ROOM ANSWER...
+
+Reply in ROOM. Prints the appservice's answer, with the event's ID. - reads the text from
+stdin (best for anything with quotes or newlines); text that starts with - goes after --.
+  --audio   as a voice message only, spoken with your profile's voice; TEXT is its transcript
+  --image   an image file
+  --vote    answer the poll EVENT with these option IDs
+
+  echo "On it." | matrix-for-ai-cli send '!abc:example.org' -
+== stderr

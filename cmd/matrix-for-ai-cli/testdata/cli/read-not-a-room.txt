@@ -1,0 +1,10 @@
+# a room ID without !
+run read general
+error appservice
+
+== exit
+1
+== stdout
+== stderr
+not a room id: general (invalid_room)
+a ROOM is a room ID, starting with ! (unread and channel list show them)

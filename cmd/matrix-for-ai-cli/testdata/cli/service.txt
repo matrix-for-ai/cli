@@ -1,0 +1,9 @@
+run service
+error usage
+
+== exit
+2
+== stdout
+== stderr
+service: missing subcommand: install, uninstall, start or stop
+see: matrix-for-ai-cli service --help

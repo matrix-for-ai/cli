@@ -1,0 +1,10 @@
+run channel invite '!r:example.org' @alice:example.org
+
+== exit
+0
+== stdout
+{
+  "user": "@alice:example.org",
+  "membership": "invite"
+}
+== stderr

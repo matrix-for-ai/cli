@@ -1,0 +1,13 @@
+run profile --help
+
+== exit
+0
+== stdout
+profile set [--as MXID] [--name N] [--avatar FILE] [--voice V] [--transcribe-audio true|false]
+
+Your display name, avatar, voice and whether your incoming audio is transcribed; prints your
+profile. A flag given empty removes it: --name "" leaves no name, --avatar "" no avatar, --voice ""
+the default voice, --transcribe-audio "" the default (true). V is a voice (em_alex) or a
+blend (em_alex=0.7,em_santa=0.3); "voices" lists them. The avatar is a PNG, JPEG, GIF or WebP
+file.
+== stderr

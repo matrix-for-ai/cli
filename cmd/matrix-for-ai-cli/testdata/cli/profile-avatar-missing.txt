@@ -1,0 +1,10 @@
+run profile set --avatar $WORK/nope.png
+
+error usage
+
+== exit
+2
+== stdout
+== stderr
+profile set: --avatar: open $WORK/nope.png: no such file or directory
+see: matrix-for-ai-cli profile --help

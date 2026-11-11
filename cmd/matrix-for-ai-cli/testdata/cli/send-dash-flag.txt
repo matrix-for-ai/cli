@@ -1,0 +1,9 @@
+# a flag-like word before ROOM
+run send -x '!r:example.org' hi
+
+== exit
+2
+== stdout
+== stderr
+send: unknown flag --x
+see: matrix-for-ai-cli send --help

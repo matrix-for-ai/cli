@@ -1,0 +1,11 @@
+run unmute --help
+
+== exit
+0
+== stdout
+mute [--for D] [MXID]
+unmute [MXID]
+
+mute keeps recording notices but runs no handler: everyone until unmute by default, or one
+identity set up here, or for a while (D: 30m, 2h, 1h30m). unmute delivers what is still unread.
+== stderr

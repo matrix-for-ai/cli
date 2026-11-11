@@ -1,0 +1,10 @@
+# no subcommand
+run identity
+error usage
+
+== exit
+2
+== stdout
+== stderr
+identity: missing subcommand: create, login, token, revoke or list
+see: matrix-for-ai-cli identity --help

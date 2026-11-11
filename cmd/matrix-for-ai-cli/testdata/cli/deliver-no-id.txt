@@ -1,0 +1,11 @@
+run deliver
+env NOTICE_IDENTITY=@ai_nova_ab12cd:example.org
+env NOTICE_ROOM=!r:example.org
+error usage
+
+== exit
+2
+== stdout
+== stderr
+deliver: missing --id
+see: matrix-for-ai-cli deliver --help

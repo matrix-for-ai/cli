@@ -1,0 +1,10 @@
+# version has no help of its own
+run version --help
+
+== exit
+0
+== stdout
+version
+
+This client's version and the major version of the appservice's API it speaks.
+== stderr

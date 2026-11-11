@@ -1,0 +1,9 @@
+run identity create nova5
+error usage
+
+== exit
+2
+== stdout
+== stderr
+identity create: missing --base
+see: matrix-for-ai-cli identity --help

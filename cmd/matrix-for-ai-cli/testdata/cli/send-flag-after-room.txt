@@ -1,0 +1,12 @@
+# a flag right after ROOM is still a flag
+run send '!r:example.org' --audio hello
+
+== exit
+0
+== stdout
+{
+  "event_id": "$new",
+  "type": "text",
+  "encrypted": true
+}
+== stderr

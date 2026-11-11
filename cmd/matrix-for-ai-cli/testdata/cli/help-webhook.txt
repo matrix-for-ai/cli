@@ -1,0 +1,23 @@
+run webhook --help
+
+== exit
+0
+== stdout
+webhook create [--as MXID | --token-file F] [--url URL] CMD [ARGS]
+webhook delete MXID
+webhook list
+
+create registers this client's URL at the appservice for that identity (one set up here, or from its
+token file), and CMD as its handler: on each notice the client runs it, no shell, with
+NOTICE_IDENTITY, NOTICE_ROOM, NOTICE_SENDER, NOTICE_UNREAD, NOTICE_TS, NOTICE_DELIVERY_ID and
+NOTICE_REASON (notice; catch-up, for what was already unread; or retry) in the environment.
+Exit 0 means delivered; anything else, or 30 s, is retried after 1, 5, 15 and 60 min. Handlers
+hand over and return: they manage, they do not work. Again rotates the secret. --url, one for
+this client, is needed the first time and kept.
+delete removes the webhook, here and at the appservice; the identity stays set up. If the
+appservice fails, it is still removed here (its notices are ignored) and it exits 1.
+Examples of handlers: matrix-for-ai-cli help handlers
+
+  matrix-for-ai-cli webhook create --as @ai_nova_ab12cd:example.org \
+      --url http://192.0.2.10:8794/ ./on-notice.sh
+== stderr

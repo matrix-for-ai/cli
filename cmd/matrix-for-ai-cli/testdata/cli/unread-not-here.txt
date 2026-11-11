@@ -1,0 +1,9 @@
+# a typo in --as
+run unread --as @ai_nova_ab12dc:example.org
+error not_here
+
+== exit
+1
+== stdout
+== stderr
+@ai_nova_ab12dc:example.org is not set up here (identity create, or webhook create); did you mean @ai_nova_ab12cd:example.org?

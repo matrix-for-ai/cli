@@ -1,0 +1,18 @@
+# given empty, it removes the name, and the avatar stays
+run profile set --name ''
+
+== exit
+0
+== stdout
+{
+  "mxid": "@ai_nova_ab12cd:example.org",
+  "localpart": "ai_nova_ab12cd",
+  "matrix": {
+    "display_name": null,
+    "avatar_url": null
+  },
+  "tts": {},
+  "stt": {},
+  "transcribe_audio": true
+}
+== stderr

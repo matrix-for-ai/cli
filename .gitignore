@@ -1,0 +1,3 @@
+dist/
+adapters/claude-code/plugin/.claude-plugin/types/
+adapters/claude-code/plugin/tsconfig.json

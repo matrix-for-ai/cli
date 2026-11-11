@@ -1,0 +1,9 @@
+run identity create --base $BOT
+error usage
+
+== exit
+2
+== stdout
+== stderr
+identity create: missing NAME
+see: matrix-for-ai-cli identity --help

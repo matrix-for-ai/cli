@@ -1,0 +1,9 @@
+run event --help
+
+== exit
+0
+== stdout
+event [--as MXID] [--extra] ROOM EVENT
+
+One event by ID, e.g. the one a reply_to points at, as the appservice gives it.
+== stderr

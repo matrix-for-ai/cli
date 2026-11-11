@@ -1,0 +1,8 @@
+file other.env MATRIX_AI_BASE=$BOT\nMATRIX_AI_TOKEN=good\nMATRIX_AI_MXID=@ai_other_ab12cd:example.org\n
+run identity login --token-file $WORK/other.env
+
+== exit
+0
+== stdout
+@ai_other_ab12cd:example.org	$WORK/other.env
+== stderr

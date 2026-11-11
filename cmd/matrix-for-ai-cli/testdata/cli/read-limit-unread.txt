@@ -1,0 +1,9 @@
+run read --limit 5 '!r:example.org'
+error usage
+
+== exit
+2
+== stdout
+== stderr
+read: --limit is for --latest, --before and --after
+see: matrix-for-ai-cli read --help

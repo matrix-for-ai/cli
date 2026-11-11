@@ -1,0 +1,10 @@
+# the appservice refuses the token: the hint
+run unread --as @ai_dead_ab12cd:example.org
+error appservice
+
+== exit
+1
+== stdout
+== stderr
+invalid or revoked token (unauthorized)
+the appservice does not take this identity's token: the appservice's admin can issue a new one (identity token MXID, with MATRIX_AI_ADMIN_TOKEN)

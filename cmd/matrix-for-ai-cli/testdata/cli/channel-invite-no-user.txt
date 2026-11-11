@@ -1,0 +1,9 @@
+run channel invite '!r:example.org'
+error usage
+
+== exit
+2
+== stdout
+== stderr
+channel invite: missing USER
+see: matrix-for-ai-cli channel --help

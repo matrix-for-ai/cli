@@ -1,0 +1,8 @@
+run identity token @ai_far_ab12cd:example.org
+error not_here
+
+== exit
+1
+== stdout
+== stderr
+@ai_far_ab12cd:example.org is not set up here: a new token for it needs --base and MATRIX_AI_ADMIN_TOKEN

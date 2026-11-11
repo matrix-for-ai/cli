@@ -1,0 +1,6 @@
+run channel kick '!r:example.org' @alice:example.org
+
+== exit
+0
+== stdout
+== stderr

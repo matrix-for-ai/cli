@@ -1,0 +1,8 @@
+run unread --peek
+
+== exit
+2
+== stdout
+== stderr
+unread: unknown flag --peek
+see: matrix-for-ai-cli unread --help

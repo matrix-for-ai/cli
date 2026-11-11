@@ -1,0 +1,9 @@
+run service frob
+error usage
+
+== exit
+2
+== stdout
+== stderr
+service: unknown subcommand "frob": install, uninstall, start or stop
+see: matrix-for-ai-cli service --help

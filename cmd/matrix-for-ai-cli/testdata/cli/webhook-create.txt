@@ -1,0 +1,7 @@
+run webhook create --url http://192.0.2.10:8794/ $WORK/on-notice.sh --flag-of-its-own
+
+== exit
+0
+== stdout
+@ai_nova_ab12cd:example.org webhook → http://192.0.2.10:8794/
+== stderr

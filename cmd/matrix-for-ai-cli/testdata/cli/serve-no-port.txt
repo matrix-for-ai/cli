@@ -1,0 +1,9 @@
+file config.json {"url": "http://example.org/"}
+run serve
+error config
+
+== exit
+1
+== stdout
+== stderr
+url "http://example.org/" has no port

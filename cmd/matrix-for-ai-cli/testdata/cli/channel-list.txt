@@ -1,0 +1,21 @@
+run channel list
+
+== exit
+0
+== stdout
+{
+  "channels": [
+    {
+      "room": "!r:example.org",
+      "encrypted": true,
+      "unread": 2,
+      "last_unread": {
+        "event_id": "$e",
+        "sender": "@alice:example.org",
+        "ts": 1
+      },
+      "last_ts": 1
+    }
+  ]
+}
+== stderr

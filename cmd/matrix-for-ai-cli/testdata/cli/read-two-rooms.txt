@@ -1,0 +1,9 @@
+run read '!r:example.org' '!s:example.org'
+error usage
+
+== exit
+2
+== stdout
+== stderr
+read: unexpected "!s:example.org"
+see: matrix-for-ai-cli read --help

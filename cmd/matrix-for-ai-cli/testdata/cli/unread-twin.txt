@@ -1,0 +1,9 @@
+# a token file that says another identity
+run unread --as @ai_twin_ab12cd:example.org
+error token_file
+
+== exit
+1
+== stdout
+== stderr
+@ai_twin_ab12cd:example.org: its token file says @ai_nova_ab12cd:example.org

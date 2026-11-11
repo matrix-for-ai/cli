@@ -1,0 +1,9 @@
+run identity login --base $BOT --output $WORK/nova.env
+stdin good\n
+error token_file
+
+== exit
+1
+== stdout
+== stderr
+$WORK/nova.env already exists: log in with --token-file

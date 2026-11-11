@@ -1,0 +1,11 @@
+run send --audio '!r:example.org' hello
+
+== exit
+0
+== stdout
+{
+  "event_id": "$new",
+  "type": "text",
+  "encrypted": true
+}
+== stderr

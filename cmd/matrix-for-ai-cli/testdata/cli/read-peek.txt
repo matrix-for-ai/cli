@@ -1,0 +1,22 @@
+run read --peek --extra '!r:example.org'
+
+== exit
+0
+== stdout
+{
+  "events": [
+    {
+      "event_id": "$e",
+      "room": "!r:example.org",
+      "sender": "@alice:example.org",
+      "ts": 1,
+      "type": "text",
+      "content": {
+        "text": "hi"
+      }
+    }
+  ],
+  "has_more": false,
+  "room": "!r:example.org"
+}
+== stderr

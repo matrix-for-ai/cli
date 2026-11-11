@@ -1,0 +1,17 @@
+run service --help
+
+== exit
+0
+== stdout
+service install [--wanted-by TARGET] | uninstall | start | stop
+
+The receiver as a service of yours, started at login, no admin rights: a systemd user unit with
+its socket (Linux, in $XDG_CONFIG_HOME/systemd/user), a LaunchAgent (macOS), a Run key
+(Windows). It listens on the config's address: its "listen" (host:port) if set, else the one in
+its url (webhook create --url). It runs this binary as you called it, with your PATH. install
+again after changing them. stop stops the receiver; on Linux also its socket, or the next
+notice starts it again.
+  --wanted-by   Linux only, the systemd target that starts it: default.target (the user's
+                manager: at login, or at boot with linger) or graphical-session.target (while
+                logged in to a desktop, even with linger)
+== stderr

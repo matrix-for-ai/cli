@@ -1,0 +1,9 @@
+run send
+error usage
+
+== exit
+2
+== stdout
+== stderr
+send: missing ROOM
+see: matrix-for-ai-cli send --help

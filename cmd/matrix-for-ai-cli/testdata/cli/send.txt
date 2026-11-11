@@ -1,0 +1,11 @@
+run send '!r:example.org' hello there
+
+== exit
+0
+== stdout
+{
+  "event_id": "$new",
+  "type": "text",
+  "encrypted": true
+}
+== stderr

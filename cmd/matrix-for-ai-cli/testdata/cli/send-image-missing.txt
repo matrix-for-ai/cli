@@ -1,0 +1,10 @@
+run send --image $WORK/nope.png '!r:example.org'
+
+error usage
+
+== exit
+2
+== stdout
+== stderr
+send: --image: open $WORK/nope.png: no such file or directory
+see: matrix-for-ai-cli send --help

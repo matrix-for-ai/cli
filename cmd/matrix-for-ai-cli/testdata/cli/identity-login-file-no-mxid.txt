@@ -1,0 +1,9 @@
+# the appservice tells whose token it is
+file other.env MATRIX_AI_BASE=$BOT\nMATRIX_AI_TOKEN=good\n
+run identity login --token-file $WORK/other.env
+
+== exit
+0
+== stdout
+@ai_nova_ab12cd:example.org	$WORK/other.env
+== stderr

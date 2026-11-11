@@ -1,0 +1,6 @@
+run channel leave '!r:example.org'
+
+== exit
+0
+== stdout
+== stderr

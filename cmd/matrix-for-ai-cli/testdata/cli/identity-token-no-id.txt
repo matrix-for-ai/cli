@@ -1,0 +1,9 @@
+run identity token
+error usage
+
+== exit
+2
+== stdout
+== stderr
+identity token: missing MXID
+see: matrix-for-ai-cli identity --help

@@ -1,0 +1,12 @@
+file pic.png \x89PNG
+run send --image $WORK/pic.png '!r:example.org'
+
+== exit
+0
+== stdout
+{
+  "event_id": "$new",
+  "type": "text",
+  "encrypted": true
+}
+== stderr

@@ -1,0 +1,16 @@
+run event '!r:example.org' '$e'
+
+== exit
+0
+== stdout
+{
+  "event_id": "$e",
+  "room": "!r:example.org",
+  "sender": "@alice:example.org",
+  "ts": 1,
+  "type": "text",
+  "content": {
+    "text": "hi"
+  }
+}
+== stderr

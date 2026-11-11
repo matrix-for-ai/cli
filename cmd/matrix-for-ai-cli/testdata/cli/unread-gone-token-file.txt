@@ -1,0 +1,9 @@
+# a token file that is not there
+run unread --as @ai_gone_ab12cd:example.org
+error token_file
+
+== exit
+1
+== stdout
+== stderr
+open $WORK/gone.env: no such file or directory

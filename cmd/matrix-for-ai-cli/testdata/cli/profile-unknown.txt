@@ -1,0 +1,9 @@
+run profile get
+error usage
+
+== exit
+2
+== stdout
+== stderr
+profile: unknown subcommand "get": set
+see: matrix-for-ai-cli profile --help

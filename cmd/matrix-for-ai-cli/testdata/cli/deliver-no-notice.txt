@@ -1,0 +1,9 @@
+run deliver --id s1
+error usage
+
+== exit
+2
+== stdout
+== stderr
+deliver: NOTICE_IDENTITY and NOTICE_ROOM are missing: run it from a handler
+see: matrix-for-ai-cli deliver --help

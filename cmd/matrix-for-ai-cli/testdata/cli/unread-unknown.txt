@@ -1,0 +1,9 @@
+# an identity nothing like those set up here
+run unread --as @someone:example.org
+error not_here
+
+== exit
+1
+== stdout
+== stderr
+@someone:example.org is not set up here (identity create, or webhook create); identity list shows the ones that are

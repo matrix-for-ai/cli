@@ -1,0 +1,10 @@
+run --version
+
+error usage
+
+== exit
+2
+== stdout
+== stderr
+unknown flag --version
+see: matrix-for-ai-cli --help

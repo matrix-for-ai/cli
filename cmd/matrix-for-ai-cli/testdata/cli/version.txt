@@ -1,0 +1,7 @@
+run version
+
+== exit
+0
+== stdout
+matrix-for-ai-cli 1.0.0 (appservice API v1)
+== stderr

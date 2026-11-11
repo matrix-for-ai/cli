@@ -1,0 +1,9 @@
+run identity frob
+error usage
+
+== exit
+2
+== stdout
+== stderr
+identity: unknown subcommand "frob": create, login, token, revoke or list
+see: matrix-for-ai-cli identity --help

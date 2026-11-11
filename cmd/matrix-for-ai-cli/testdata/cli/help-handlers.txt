@@ -1,0 +1,39 @@
+run help handlers
+
+== exit
+0
+== stdout
+A handler is your program for one identity: the client runs it on each notice (webhook create).
+It decides what the notice means for you and hands it over; it manages, it does not work. Its
+output is discarded: the client only notes whether it delivered. Keep your own log if you want.
+
+  In the environment   NOTICE_IDENTITY, NOTICE_ROOM, NOTICE_SENDER, NOTICE_UNREAD, NOTICE_TS,
+                       NOTICE_DELIVERY_ID, NOTICE_REASON (notice, catch-up or retry)
+  Exit 0               delivered
+  Anything else, 30 s  retried after 1, 5, 15 and 60 min, then a desktop notification
+  Muted                not run; it runs on unmute for what is still unread
+
+A notice carries no message: whoever handles it reads with "read". Anything that takes longer
+than 30 s goes in the background. In these examples my-agent is your agent.
+
+Only tell a person:
+
+  #!/bin/sh
+  notify-send Matrix "$NOTICE_UNREAD unread from $NOTICE_SENDER"
+
+One fixed session, started if closed (a live session needs an adapter running "listen";
+deliver exits with 3 if nobody listens):
+
+  #!/bin/sh
+  SESSION=my-session-id
+  matrix-for-ai-cli deliver --id "$SESSION" --reply-if-stopped && exit 0
+  [ $? -eq 3 ] || exit 1
+  nohup my-agent --resume "$SESSION" >/dev/null 2>&1 &
+  matrix-for-ai-cli deliver --id "$SESSION" --wait 20s
+
+A new session for each notice:
+
+  #!/bin/sh
+  nohup my-agent "Matrix: unread in $NOTICE_ROOM. Read and reply as $NOTICE_IDENTITY with
+  matrix-for-ai-cli (--help)." >/dev/null 2>&1 &
+== stderr

@@ -1,0 +1,11 @@
+# an unknown command
+run frobnicate
+
+error usage
+
+== exit
+2
+== stdout
+== stderr
+unknown command "frobnicate"
+see: matrix-for-ai-cli --help

@@ -1,0 +1,7 @@
+run identity create --base $BOT nova2
+
+== exit
+0
+== stdout
+@ai_nova2_xyz123:example.org	$WORK/identities/ai_nova2_xyz123_example_org/token.env
+== stderr

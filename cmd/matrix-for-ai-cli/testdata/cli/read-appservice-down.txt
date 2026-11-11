@@ -1,0 +1,9 @@
+# the appservice answers something that is not a problem
+run read '!down:example.org'
+error appservice
+
+== exit
+1
+== stdout
+== stderr
+the appservice answered 502 to GET /channels/!down:example.org/events: Bad Gateway

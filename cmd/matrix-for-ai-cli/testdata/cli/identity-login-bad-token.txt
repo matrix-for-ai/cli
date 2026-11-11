@@ -1,0 +1,9 @@
+run identity login --base $BOT
+stdin dead\n
+error appservice
+
+== exit
+1
+== stdout
+== stderr
+the appservice does not take that token: invalid or revoked token (unauthorized)

@@ -1,0 +1,13 @@
+run channel join '!r:example.org'
+
+== exit
+0
+== stdout
+{
+  "room": "!r:example.org",
+  "encrypted": true,
+  "unread": 0,
+  "last_unread": null,
+  "last_ts": null
+}
+== stderr

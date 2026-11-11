@@ -1,0 +1,10 @@
+# no subcommand
+run channel
+error usage
+
+== exit
+2
+== stdout
+== stderr
+channel: missing subcommand: list, create, join, leave, members, invite or kick
+see: matrix-for-ai-cli channel --help

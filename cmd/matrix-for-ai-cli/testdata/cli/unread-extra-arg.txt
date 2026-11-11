@@ -1,0 +1,11 @@
+# an argument unread does not take
+run unread '!r:example.org'
+
+error usage
+
+== exit
+2
+== stdout
+== stderr
+unread: unexpected "!r:example.org"
+see: matrix-for-ai-cli unread --help

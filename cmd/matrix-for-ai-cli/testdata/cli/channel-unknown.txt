@@ -1,0 +1,9 @@
+run channel frob
+error usage
+
+== exit
+2
+== stdout
+== stderr
+channel: unknown subcommand "frob": list, create, join, leave, members, invite or kick
+see: matrix-for-ai-cli channel --help

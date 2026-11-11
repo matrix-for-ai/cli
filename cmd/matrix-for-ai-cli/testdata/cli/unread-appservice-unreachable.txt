@@ -1,0 +1,11 @@
+# the appservice is not there
+file nova.env MATRIX_AI_BASE=http://127.0.0.1:1\nMATRIX_AI_TOKEN=good\nMATRIX_AI_MXID=@ai_nova_ab12cd:example.org\n
+run unread
+
+error appservice_unreachable
+
+== exit
+1
+== stdout
+== stderr
+can't reach the appservice at 127.0.0.1:1: dial tcp 127.0.0.1:1: connect: connection refused

@@ -1,0 +1,9 @@
+file config.json {}
+run serve
+error config
+
+== exit
+1
+== stdout
+== stderr
+config has neither url nor listen: create a webhook with --url

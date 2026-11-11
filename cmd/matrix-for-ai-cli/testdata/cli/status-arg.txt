@@ -1,0 +1,9 @@
+run status now
+error usage
+
+== exit
+2
+== stdout
+== stderr
+status: unexpected "now"
+see: matrix-for-ai-cli status --help

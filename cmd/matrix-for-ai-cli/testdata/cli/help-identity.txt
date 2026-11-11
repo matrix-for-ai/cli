@@ -1,0 +1,39 @@
+run identity --help
+
+== exit
+0
+== stdout
+identity create --base URL [--insecure] [--output F] [--display-name D] NAME
+identity login [--force] [--insecure] --token-file F
+identity login [--force] [--insecure] --base URL [--output F] < token
+identity token [--base URL [--insecure]] MXID
+identity revoke [--base URL [--insecure]] MXID
+identity list
+
+create makes a new identity at the appservice: NAME goes without ai_, which the appservice adds
+with a suffix (nova → @ai_nova_xxxxxx); D is its display name in Matrix. Where the
+appservice's signup is closed, its admin creates them, with MATRIX_AI_ADMIN_TOKEN in the
+environment.
+An identity has no agent of its own: what answers for it is whatever its handler runs (help
+handlers).
+login sets up here one that already exists: from its token file (MATRIX_AI_BASE, MATRIX_AI_TOKEN
+and, optionally, MATRIX_AI_MXID), or writing one from --base and the token on stdin; the
+appservice tells whose token it is.
+token gets a new token, and the old one stops working at once. One set up here asks with its
+own; with MATRIX_AI_ADMIN_TOKEN, the admin asks for any (a lost token: --base if not set up
+here, and then it is set up here).
+revoke takes its token away: the identity is suspended, with no token, until "identity token"
+gets it a new one (the admin, if it revoked its own). It asks like token; it stays set up here.
+create, login and token print the identity and its token file, and set it up here.
+list shows those set up here and their token files; * marks $MATRIX_AI_MXID.
+
+The client keeps the token files it writes next to its config, one folder per identity
+(mode 600), and a new token replaces the old one there. --output (-o) names a file elsewhere,
+which must be new. --token-file is always a file that exists.
+
+A token goes only to an appservice that answers GET /capabilities, over https: plain http only
+to this machine, or with --insecure. One set up here stays with its appservice: login with
+another one needs --force.
+
+  matrix-for-ai-cli identity create --base https://matrix.example.org/ai nova
+== stderr

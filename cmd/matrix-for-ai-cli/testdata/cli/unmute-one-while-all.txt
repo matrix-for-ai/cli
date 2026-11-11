@@ -1,0 +1,8 @@
+file state/matrix-for-ai-cli/mutes.json {"*":0}
+run unmute @ai_nova_ab12cd:example.org
+
+== exit
+0
+== stdout
+== stderr
+everyone is still muted (unmute with no MXID)

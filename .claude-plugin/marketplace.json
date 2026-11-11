@@ -1,0 +1,7 @@
+{
+  "name": "matrix-for-ai",
+  "owner": { "name": "Rafa Capilla" },
+  "plugins": [
+    { "name": "matrix-for-ai-listener", "source": "./adapters/claude-code/plugin", "description": "Generic notice door for a Claude Code session." }
+  ]
+}
