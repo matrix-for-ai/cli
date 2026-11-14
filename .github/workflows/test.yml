@@ -18,6 +18,7 @@ jobs:
     runs-on: ubuntu-24.04
     env:
       APPSERVICE_REF: d5adcd9f4e754ca724f4d890e05e11448d85d46c  # appservice 1.0.0, whose API this client speaks
+      COMPOSE_IMAGE: docker.io/library/docker@sha256:48678dab48932d2b9189040748f321d4eb09c90193bbf4f4b9b86d72cffd6e25  # Compose pinned, not the runner's
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
@@ -28,18 +29,19 @@ jobs:
       - name: Start homeserver and appservice
         working-directory: appservice/examples
         run: |
+          compose() { docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$GITHUB_WORKSPACE:$GITHUB_WORKSPACE" -w "$PWD" "$COMPOSE_IMAGE" docker compose "$@"; }
           for name in MATRIX_AS_TOKEN MATRIX_HS_TOKEN AI_API_ADMIN_TOKEN; do
             echo "$name=$(openssl rand -hex 32)"
           done > .env
-          docker compose up -d --build
+          compose up -d --build
           for _ in $(seq 60); do
             curl -fsS localhost:7700/capabilities && exit 0
             sleep 2
           done
-          docker compose logs
+          compose logs
           exit 1
       - run: ./build.sh e2e http://127.0.0.1:7700
       - name: Logs
         if: failure()
         working-directory: appservice/examples
-        run: docker compose logs
+        run: docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$GITHUB_WORKSPACE:$GITHUB_WORKSPACE" -w "$PWD" "$COMPOSE_IMAGE" docker compose logs
