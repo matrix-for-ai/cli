@@ -45,3 +45,12 @@ jobs:
         if: failure()
         working-directory: appservice/examples
         run: docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$GITHUB_WORKSPACE:$GITHUB_WORKSPACE" -w "$PWD" "$COMPOSE_IMAGE" docker compose logs
+
+  passed:
+    if: always()
+    needs: [test, e2e]
+    runs-on: ubuntu-24.04
+    steps:
+      - env:
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+        run: test -z "$(echo "$RESULTS" | tr ' ' '\n' | grep -vx success)"
