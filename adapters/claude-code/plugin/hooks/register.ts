@@ -18,7 +18,7 @@ type Delivery = {
 const CLIENT = 'matrix-for-ai-cli'
 
 let listener: AsyncGenerator<unknown, unknown> | null = null
-const waiting = new Map<string, Delivery>() // refused (stopped with Esc), by room; told when a turn completes
+const waiting = new Map<string, Delivery>() // refused (a stop, a hook), by room; told when a turn completes
 const commands: Delivery[] = [] // refused commands, run when a turn completes
 let turnId: string | undefined // the main turn running, for esc
 const moved: string[] = [] // the Bash commands an abort sent to the background
@@ -139,12 +139,13 @@ async function submit($: any, ds: Delivery[]) {
     return
   }
   for (const d of ds) waiting.set(d.room, d)
-  setStatus($, 'Matrix: unread in ' + [...waiting.keys()].join(', '))
+  $.ui.log(`prompt not taken: ${reason}`, { to: 'debug' })
+  setStatus($, `Matrix: unread in ${[...waiting.keys()].join(', ')} (not taken: ${reason})`)
   const d = ds.find(d => d.reply_if_stopped)
   if (d && !stoppedTold) {
     stoppedTold = true
     await $.process.run([CLIENT, 'send', '--as', d.identity, d.room,
-      "I'm stopped at my terminal (Esc). I'll read this once someone types there."], { timeoutMs: 20_000 })
+      `My session did not take this (${reason}). I'll read it once it does.`], { timeoutMs: 20_000 })
       .catch(() => undefined)
   }
 }

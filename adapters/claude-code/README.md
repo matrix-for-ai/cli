@@ -18,9 +18,10 @@ handler hands it becomes a prompt. When another session takes over the process (
 that is gone.
 
 - **The prompt** is fixed: who wrote, where, how many unread, and to read and reply with the client.
-- **Stopped with Esc**, Claude Code refuses prompts until someone types. The mod shows a status line,
-  retries when the next turn completes (several rooms that waited go as one prompt pointing at
-  `unread`) and, if the handler asked (`--reply-if-stopped`), says so in the room once per stop.
+- **Not taken**: Claude Code may refuse a prompt (stopped with Esc, until someone types; or a hook).
+  The mod shows a status line with the reason, retries when the next turn completes (several rooms
+  that waited go as one prompt pointing at `unread`) and, if the handler asked (`--reply-if-stopped`),
+  says so in the room, with the reason, once until a prompt is taken again.
 - **Commands**: a delivery with `--command C` runs `/C` in the session as if typed there (queued while
   it is busy) instead of a prompt; `esc` ends the running turn and kills a running Bash (the abort
   alone would leave it in the background); the session keeps taking notices. Who may ask for which
