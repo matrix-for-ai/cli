@@ -1,0 +1,9 @@
+# before 1.1.0 it listened on the url's address: the port stays
+file config.json {"url": "http://192.0.2.10:9000/"}
+run service listen
+
+== exit
+0
+== stdout
+0.0.0.0:9000
+== stderr

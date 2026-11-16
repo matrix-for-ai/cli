@@ -1,0 +1,10 @@
+# each URL as the appservice has it, or why not
+file config.json {"entities": {"@ai_nova_ab12cd:example.org": {"token_file": "$WORK/nova.env", "on_notice": ["/bin/h"], "secret": "s"}, "@ai_dead_ab12cd:example.org": {"token_file": "$WORK/dead.env", "on_notice": ["/bin/h"], "secret": "s"}}}
+run webhook list
+
+== exit
+0
+== stdout
+@ai_dead_ab12cd:example.org	token: $WORK/dead.env	on_notice: [/bin/h]	url: unknown (invalid or revoked token (unauthorized))
+@ai_nova_ab12cd:example.org	token: $WORK/nova.env	on_notice: [/bin/h]	url: http://192.0.2.10:8794/
+== stderr

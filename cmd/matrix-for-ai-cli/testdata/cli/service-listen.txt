@@ -1,0 +1,9 @@
+# by default, every interface
+file config.json {}
+run service listen
+
+== exit
+0
+== stdout
+0.0.0.0:8794
+== stderr

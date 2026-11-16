@@ -9,7 +9,7 @@ import (
 	"os"
 )
 
-const version = "1.0.0"
+const version = "1.1.0"
 
 func main() {
 	log.SetFlags(0)
@@ -83,10 +83,7 @@ func cli(argv []string) error {
 	case "webhook":
 		err = cmdWebhook(*configPath, args[1:])
 	case "version":
-		if len(args) > 1 {
-			return usageError("version", "unexpected %q", args[1])
-		}
-		fmt.Printf("matrix-for-ai-cli %s (appservice API v%d)\n", version, appserviceAPIVersion)
+		err = cmdVersion(args[1:])
 	case "help":
 		fmt.Print(usage)
 	default:

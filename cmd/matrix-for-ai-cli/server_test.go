@@ -5,6 +5,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"log"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -158,5 +159,19 @@ func TestDuplicateDeliveryIDAfterRestart(t *testing.T) {
 	restarted.now = func() time.Time { return later }
 	if restarted.firstTime("d2"); len(loadSeen(s.state)) != 1 {
 		t.Fatalf("stale ids are not pruned: %v", loadSeen(s.state))
+	}
+}
+
+// A notice the receiver cannot verify says so in the log: a secret lost here is otherwise silent.
+func TestLogsBadSignature(t *testing.T) {
+	now := time.Now()
+	s, _ := testServer(t, now)
+	var logged strings.Builder
+	log.SetOutput(&logged)
+	defer log.SetOutput(os.Stderr)
+	body := notice(now, "d1")
+	post(s, body, sign("otro", body))
+	if !strings.Contains(logged.String(), `notice for @ai_paul:hs with a bad signature`) {
+		t.Errorf("log: %q", logged.String())
 	}
 }

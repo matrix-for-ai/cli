@@ -1,0 +1,8 @@
+# the default, given
+run service listen 0.0.0.0:8794
+
+== exit
+0
+== stdout
+0.0.0.0:8794
+== stderr

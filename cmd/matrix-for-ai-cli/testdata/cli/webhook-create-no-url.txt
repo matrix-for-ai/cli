@@ -1,4 +1,3 @@
-file config.json {"entities": {"@ai_nova_ab12cd:example.org": {"token_file": "$WORK/nova.env"}}}
 run webhook create $WORK/h.sh
 error usage
 
@@ -6,5 +5,5 @@ error usage
 2
 == stdout
 == stderr
-webhook create: missing --url: it is needed the first time
+webhook create: missing --url
 see: matrix-for-ai-cli webhook --help

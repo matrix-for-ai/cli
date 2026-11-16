@@ -4,6 +4,7 @@ import (
 	"encoding/xml"
 	"flag"
 	"fmt"
+	"net"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -14,13 +15,15 @@ import (
 
 const serviceName = "matrix-for-ai-cli"
 
-const serviceSubcommands = "install, uninstall, start or stop"
+const serviceSubcommands = "install, uninstall, start, stop or listen"
 
 func cmdService(configPath string, args []string) error {
 	if len(args) == 0 {
 		return usageError("service", "missing subcommand: %s", serviceSubcommands)
 	}
 	switch args[0] {
+	case "listen":
+		return cmdServiceListen(configPath, args[1:])
 	case "install", "uninstall", "start", "stop":
 	default:
 		return usageError("service", "unknown subcommand %q: %s", args[0], serviceSubcommands)
@@ -34,20 +37,18 @@ func cmdService(configPath string, args []string) error {
 	if *wantedBy != "" && (args[0] != "install" || runtime.GOOS != "linux") {
 		return usageError(fs.Name(), "--wanted-by is only for install, on Linux")
 	}
-	exe, err := clientPath()
+	if *wantedBy != "" {
+		t := *wantedBy
+		if t == "default.target" {
+			t = ""
+		}
+		if err := updateConfig(configPath, func(cfg *Config) error { cfg.WantedBy = t; return nil }); err != nil {
+			return err
+		}
+	}
+	sv, err := systemService(configPath)
 	if err != nil {
 		return err
-	}
-	var sv service
-	switch runtime.GOOS {
-	case "linux":
-		sv = systemdService{exe, configPath, *wantedBy}
-	case "darwin":
-		sv = launchdService{exe, configPath}
-	case "windows":
-		sv = windowsService{exe, configPath}
-	default:
-		return fail(errUnsupported, "service: not on %s; run serve with your system's tools", runtime.GOOS)
 	}
 	switch args[0] {
 	case "install":
@@ -60,7 +61,70 @@ func cmdService(configPath string, args []string) error {
 	return sv.stop()
 }
 
+func systemService(configPath string) (service, error) {
+	exe, err := clientPath()
+	if err != nil {
+		return nil, err
+	}
+	switch runtime.GOOS {
+	case "linux":
+		return systemdService{exe, configPath}, nil
+	case "darwin":
+		return launchdService{exe, configPath}, nil
+	case "windows":
+		return windowsService{exe, configPath}, nil
+	}
+	return nil, fail(errUnsupported, "service: not on %s; run serve with your system's tools", runtime.GOOS)
+}
+
+// cmdServiceListen shows or sets the receiver's address, and applies it to the service if installed.
+func cmdServiceListen(configPath string, args []string) error {
+	fs := flag.NewFlagSet("service listen", flag.ExitOnError)
+	reset := fs.Bool("default", false, "")
+	parse(fs, args)
+	if *reset {
+		if err := need(fs); err != nil {
+			return err
+		}
+	} else if fs.NArg() > 1 {
+		return usageError(fs.Name(), "unexpected %q", fs.Arg(1))
+	}
+	cfg, err := loadConfig(configPath)
+	if err != nil {
+		return err
+	}
+	was := listenAddr(cfg)
+	if !*reset && fs.NArg() == 0 {
+		fmt.Println(was)
+		return nil
+	}
+	addr := ""
+	if !*reset {
+		host, port, err := net.SplitHostPort(fs.Arg(0))
+		if n, perr := strconv.Atoi(port); err != nil || net.ParseIP(host) == nil || perr != nil || n < 1 || n > 65535 {
+			return usageError(fs.Name(), "%q is not IP:PORT", fs.Arg(0))
+		}
+		if addr = net.JoinHostPort(host, port); addr == defaultListen {
+			addr = ""
+		}
+	}
+	if err := updateConfig(configPath, func(cfg *Config) error { cfg.Listen = addr; return nil }); err != nil {
+		return err
+	}
+	now := listenAddr(&Config{Listen: addr})
+	fmt.Println(now)
+	if now == was {
+		return nil
+	}
+	sv, err := systemService(configPath)
+	if err != nil || !sv.installed() {
+		return nil
+	}
+	return sv.install()
+}
+
 type service interface {
+	installed() bool
 	install() error
 	uninstall() error
 	start() error
@@ -107,7 +171,7 @@ func writeFresh(path, content string) error {
 	return os.WriteFile(path, []byte(content), 0o644)
 }
 
-type systemdService struct{ exe, config, wantedBy string }
+type systemdService struct{ exe, config string }
 
 func (s systemdService) dir() string {
 	d := os.Getenv("XDG_CONFIG_HOME")
@@ -123,13 +187,10 @@ func (s systemdService) units() (socket, svc string, err error) {
 	if err != nil {
 		return "", "", err
 	}
-	addr, err := listenAddr(cfg)
-	if err != nil {
-		return "", "", err
-	}
+	addr := listenAddr(cfg)
 	esc := func(v string) string { return strconv.Quote(strings.ReplaceAll(v, "%", "%%")) }
 	sockTarget, svcTarget, bound := "sockets.target", "default.target", ""
-	if t := s.wantedBy; t != "" && t != "default.target" {
+	if t := cfg.WantedBy; t != "" {
 		sockTarget, svcTarget, bound = t, t, "PartOf="+t+"\nAfter="+t+"\n"
 	}
 	socket = fmt.Sprintf(`[Unit]
@@ -157,6 +218,11 @@ Environment=%[4]s
 WantedBy=%[6]s
 `, serviceName, esc(s.exe), esc(s.config), esc("PATH="+servicePATH(s.exe)), bound, svcTarget)
 	return socket, svc, nil
+}
+
+func (s systemdService) installed() bool {
+	_, err := os.Stat(filepath.Join(s.dir(), serviceName+".socket"))
+	return err == nil
 }
 
 func (s systemdService) install() error {
@@ -213,6 +279,11 @@ func (s launchdService) plist() string {
 
 func (s launchdService) domain() string { return "gui/" + strconv.Itoa(os.Getuid()) }
 
+func (s launchdService) installed() bool {
+	_, err := os.Stat(s.plist())
+	return err == nil
+}
+
 func (s launchdService) install() error {
 	home, _ := os.UserHomeDir()
 	x := func(v string) string {
@@ -260,6 +331,10 @@ func (s launchdService) stop() error {
 type windowsService struct{ exe, config string }
 
 const runKey = `HKCU\Software\Microsoft\Windows\CurrentVersion\Run`
+
+func (s windowsService) installed() bool {
+	return exec.Command("reg", "query", runKey, "/v", serviceName).Run() == nil
+}
 
 func (s windowsService) install() error {
 	cmd := fmt.Sprintf(`"%s" --config "%s" service start`, s.exe, s.config)

@@ -9,11 +9,11 @@ import (
 func TestSystemdUnits(t *testing.T) {
 	dir := t.TempDir()
 	cfg := filepath.Join(dir, "100% config.json")
-	if err := saveConfig(cfg, &Config{URL: "http://192.0.2.1:8794/"}); err != nil {
+	if err := saveConfig(cfg, &Config{Listen: "192.0.2.1:8794"}); err != nil {
 		t.Fatal(err)
 	}
 	t.Setenv("PATH", "/usr/bin")
-	socket, svc, err := systemdService{"/home/me/bin/matrix-for-ai-cli", cfg, ""}.units()
+	socket, svc, err := systemdService{"/home/me/bin/matrix-for-ai-cli", cfg}.units()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -28,10 +28,10 @@ func TestSystemdUnits(t *testing.T) {
 
 func TestSystemdUnitsWantedBy(t *testing.T) {
 	cfg := filepath.Join(t.TempDir(), "config.json")
-	if err := saveConfig(cfg, &Config{URL: "http://192.0.2.1:8794/"}); err != nil {
+	if err := saveConfig(cfg, &Config{WantedBy: "graphical-session.target"}); err != nil {
 		t.Fatal(err)
 	}
-	socket, svc, err := systemdService{"/bin/c", cfg, "graphical-session.target"}.units()
+	socket, svc, err := systemdService{"/bin/c", cfg}.units()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -40,6 +40,25 @@ func TestSystemdUnitsWantedBy(t *testing.T) {
 			if !strings.Contains(u, want) {
 				t.Errorf("missing %q in:\n%s", want, u)
 			}
+		}
+	}
+}
+
+func TestSystemdUnitsListenOnAllByDefault(t *testing.T) {
+	cfg := filepath.Join(t.TempDir(), "config.json")
+	socket, _, err := systemdService{"/bin/c", cfg}.units()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(socket, "ListenStream=0.0.0.0:8794\n") {
+		t.Errorf("socket:\n%s", socket)
+	}
+}
+
+func TestDialAddr(t *testing.T) {
+	for addr, want := range map[string]string{"0.0.0.0:8794": "127.0.0.1:8794", "[::]:1": "127.0.0.1:1", "192.0.2.1:8794": "192.0.2.1:8794"} {
+		if got := dialAddr(addr); got != want {
+			t.Errorf("dialAddr(%q) = %q, want %q", addr, got, want)
 		}
 	}
 }

@@ -132,11 +132,7 @@ func wake(configPath string) {
 	if err != nil {
 		return
 	}
-	addr, err := listenAddr(cfg)
-	if err != nil {
-		return
-	}
-	if c, err := net.DialTimeout("tcp", addr, 2*time.Second); err == nil {
+	if c, err := net.DialTimeout("tcp", dialAddr(listenAddr(cfg)), 2*time.Second); err == nil {
 		c.Close()
 	}
 }
@@ -216,4 +212,13 @@ func cmdStatus(configPath, state string, args []string) error {
 		fmt.Println("  " + strings.TrimSuffix(filepath.Base(s), ".sock"))
 	}
 	return nil
+}
+
+// dialAddr is where to reach a receiver listening on addr: on this machine, if it listens on all.
+func dialAddr(addr string) string {
+	host, port, err := net.SplitHostPort(addr)
+	if ip := net.ParseIP(host); err == nil && (host == "" || ip != nil && ip.IsUnspecified()) {
+		return net.JoinHostPort("127.0.0.1", port)
+	}
+	return addr
 }

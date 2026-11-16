@@ -1,0 +1,10 @@
+# an IP, not a name: systemd listens on addresses
+run service listen localhost:8794
+error usage
+
+== exit
+2
+== stdout
+== stderr
+service listen: "localhost:8794" is not IP:PORT
+see: matrix-for-ai-cli service --help

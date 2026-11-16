@@ -5,5 +5,5 @@ error usage
 2
 == stdout
 == stderr
-service: missing subcommand: install, uninstall, start or stop
+service: missing subcommand: install, uninstall, start, stop or listen
 see: matrix-for-ai-cli service --help

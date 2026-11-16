@@ -4,7 +4,8 @@ run version --help
 == exit
 0
 == stdout
-version
+version [--check]
 
 This client's version and the major version of the appservice's API it speaks.
+  --check   also ask GitHub for the latest release and, if it is newer, say how to update
 == stderr
