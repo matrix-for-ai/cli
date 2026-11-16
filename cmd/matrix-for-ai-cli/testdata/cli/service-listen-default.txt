@@ -1,0 +1,8 @@
+file config.json {"listen": "192.0.2.10:9000"}
+run service listen --default
+
+== exit
+0
+== stdout
+0.0.0.0:8794
+== stderr

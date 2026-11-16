@@ -8,7 +8,6 @@ import (
 	"log"
 	"net"
 	"net/http"
-	"net/url"
 	"os"
 	"os/signal"
 	"syscall"
@@ -33,11 +32,7 @@ func cmdServe(configPath, state string, args []string) error {
 		if err != nil {
 			return err
 		}
-		addr, err := listenAddr(cfg)
-		if err != nil {
-			return err
-		}
-		if ln, err = net.Listen("tcp", addr); err != nil {
+		if ln, err = net.Listen("tcp", listenAddr(cfg)); err != nil {
 			return err
 		}
 	}
@@ -88,16 +83,9 @@ func cmdServe(configPath, state string, args []string) error {
 	return nil
 }
 
-func listenAddr(cfg *Config) (string, error) {
+func listenAddr(cfg *Config) string {
 	if cfg.Listen != "" {
-		return cfg.Listen, nil
+		return cfg.Listen
 	}
-	u, err := url.Parse(cfg.URL)
-	if err != nil || u.Host == "" {
-		return "", fail(errConfig, "config has neither url nor listen: create a webhook with --url")
-	}
-	if u.Port() == "" {
-		return "", fail(errConfig, "url %q has no port", cfg.URL)
-	}
-	return u.Host, nil
+	return defaultListen
 }

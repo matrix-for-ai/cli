@@ -145,19 +145,21 @@ another one needs --force.
 
   matrix-for-ai-cli identity create --base https://matrix.example.org/ai nova
 `,
-	"webhook": `webhook create [--as MXID | --token-file F] [--url URL] CMD [ARGS]
+	"webhook": `webhook create [--as MXID | --token-file F] --url URL CMD [ARGS]
 webhook delete MXID
 webhook list
 
-create registers this client's URL at the appservice for that identity (one set up here, or from its
-token file), and CMD as its handler: on each notice the client runs it, no shell, with
-NOTICE_IDENTITY, NOTICE_ROOM, NOTICE_SENDER, NOTICE_UNREAD, NOTICE_TS, NOTICE_DELIVERY_ID and
-NOTICE_REASON (notice; catch-up, for what was already unread; or retry) in the environment.
-Exit 0 means delivered; anything else, or 30 s, is retried after 1, 5, 15 and 60 min. Handlers
-hand over and return: they manage, they do not work. Again rotates the secret. --url, one for
-this client, is needed the first time and kept.
+create registers at the appservice, for that identity (one set up here, or from its token file),
+URL as where it sends its notices: an address of this machine it can reach, on the port the
+receiver listens on (service listen). CMD is its handler: on each notice the client runs it, no
+shell, with NOTICE_IDENTITY, NOTICE_ROOM, NOTICE_SENDER, NOTICE_UNREAD, NOTICE_TS,
+NOTICE_DELIVERY_ID and NOTICE_REASON (notice; catch-up, for what was already unread; or retry)
+in the environment. Exit 0 means delivered; anything else, or 30 s, is retried after 1, 5, 15
+and 60 min. Handlers hand over and return: they manage, they do not work. Again rotates the
+secret and sets the URL.
 delete removes the webhook, here and at the appservice; the identity stays set up. If the
 appservice fails, it is still removed here (its notices are ignored) and it exits 1.
+list shows the identities set up here, their handlers and the URL the appservice has for each.
 Examples of handlers: matrix-for-ai-cli help handlers
 
   matrix-for-ai-cli webhook create --as @ai_nova_ab12cd:example.org \
@@ -208,22 +210,26 @@ identity set up here, or for a while (D: 30m, 2h, 1h30m). unmute delivers what i
 What is muted, what is pending per identity, the retries due and the sessions listening.
 `,
 	"service": `service install [--wanted-by TARGET] | uninstall | start | stop
+service listen [IP:PORT | --default]
 
 The receiver as a service of yours, started at login, no admin rights: a systemd user unit with
 its socket (Linux, in $XDG_CONFIG_HOME/systemd/user), a LaunchAgent (macOS), a Run key
-(Windows). It listens on the config's address: its "listen" (host:port) if set, else the one in
-its url (webhook create --url). It runs this binary as you called it, with your PATH. install
-again after changing them. stop stops the receiver; on Linux also its socket, or the next
-notice starts it again.
+(Windows). It runs this binary as you called it, with your PATH: install again after changing
+them. stop stops the receiver; on Linux also its socket, or the next notice starts it again.
   --wanted-by   Linux only, the systemd target that starts it: default.target (the user's
                 manager: at login, or at boot with linger) or graphical-session.target (while
-                logged in to a desktop, even with linger)
+                logged in to a desktop, even with linger). Kept for the next install.
+
+listen shows where the receiver listens, or sets it and applies it to the service if installed.
+By default 0.0.0.0:8794, every network this machine is on: notices are signed, but a laptop
+that moves between networks is better off with an address of its own. Where the appservice
+sends notices is each webhook's URL (webhook create), not this.
 `,
 	"serve": `serve [--idle 15m]
 
-The receiver of the appservice's notices, on the systemd socket or on the config's address (see
-service). With a socket it exits after --idle without notices, unless retries or a timed mute
-are due; --idle 0 never exits.
+The receiver of the appservice's notices, on the systemd socket or where "service listen" says.
+With a socket it exits after --idle without notices, unless retries or a timed mute are due;
+--idle 0 never exits.
 `,
 	"deliver": `deliver --id ID [--wait D] [--reply-if-stopped] [--command C]
 
@@ -244,9 +250,10 @@ the temp folder) and print one JSON line per delivery, with identity, room, send
 reason, and reply_if_stopped and command when deliver set them. A newer listener for the same
 ID takes over.
 `,
-	"version": `version
+	"version": `version [--check]
 
 This client's version and the major version of the appservice's API it speaks.
+  --check   also ask GitHub for the latest release and, if it is newer, say how to update
 `,
 }
 

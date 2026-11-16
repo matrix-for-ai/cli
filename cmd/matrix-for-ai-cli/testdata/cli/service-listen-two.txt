@@ -1,0 +1,9 @@
+run service listen --default 192.0.2.10:9000
+error usage
+
+== exit
+2
+== stdout
+== stderr
+service listen: unexpected "192.0.2.10:9000"
+see: matrix-for-ai-cli service --help

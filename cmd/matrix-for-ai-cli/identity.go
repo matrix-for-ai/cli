@@ -339,19 +339,15 @@ func addEntity(configPath, mxid, tokenFile string) error {
 	if err != nil {
 		return err
 	}
-	cfg, err := loadConfig(configPath)
-	if err != nil {
-		return err
-	}
-	e, ok := cfg.Entities[mxid]
-	if !ok {
-		e = &Entity{}
-		cfg.Entities[mxid] = e
-	} else if e.TokenFile == tf {
+	return updateConfig(configPath, func(cfg *Config) error {
+		e, ok := cfg.Entities[mxid]
+		if !ok {
+			e = &Entity{}
+			cfg.Entities[mxid] = e
+		}
+		e.TokenFile = tf
 		return nil
-	}
-	e.TokenFile = tf
-	return saveConfig(configPath, cfg)
+	})
 }
 
 // Without : and ., which Windows refuses in names.

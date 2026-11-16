@@ -1,0 +1,9 @@
+# a config from before 1.1.0 keeps working
+file config.json {"url": "http://192.0.2.10:8794/", "entities": {"@ai_nova_ab12cd:example.org": {"token_file": "$WORK/nova.env"}}}
+run webhook create --as @ai_nova_ab12cd:example.org --url http://192.0.2.10:8794/ $WORK/h.sh
+
+== exit
+0
+== stdout
+@ai_nova_ab12cd:example.org webhook → http://192.0.2.10:8794/
+== stderr

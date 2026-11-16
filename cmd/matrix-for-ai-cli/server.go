@@ -78,6 +78,14 @@ func (s *server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	name, ok := verify(cfg, body, r.Header.Get("X-Signature-256"))
 	if !ok {
+		var claim struct {
+			Identity string `json:"identity"`
+		}
+		if json.Unmarshal(body, &claim); claim.Identity == "" {
+			log.Printf("not a notice, with no valid signature, from %s: rejected", r.RemoteAddr)
+		} else {
+			log.Printf("notice for %s with a bad signature, from %s: rejected (if that identity is set up here, its secret is not the appservice's: webhook create again)", claim.Identity, r.RemoteAddr)
+		}
 		http.Error(w, "bad signature", http.StatusUnauthorized)
 		return
 	}

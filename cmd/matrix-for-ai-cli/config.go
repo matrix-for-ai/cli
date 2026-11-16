@@ -4,16 +4,20 @@ import (
 	"encoding/json"
 	"errors"
 	"io/fs"
+	"net"
+	"net/url"
 	"os"
 	"path/filepath"
 	"strings"
 )
 
+const defaultListen = "0.0.0.0:8794"
+
 // Mode 600: it holds the webhook secrets.
 type Config struct {
-	URL      string             `json:"url"`
-	Listen   string             `json:"listen,omitempty"`
-	Entities map[string]*Entity `json:"entities"` // by Matrix ID
+	Listen   string             `json:"listen,omitempty"`    // host:port, defaultListen if empty
+	WantedBy string             `json:"wanted_by,omitempty"` // the systemd target of service install, default.target if empty
+	Entities map[string]*Entity `json:"entities"`            // by Matrix ID
 }
 
 type Entity struct {
@@ -48,7 +52,29 @@ func loadConfig(path string) (*Config, error) {
 	if cfg.Entities == nil {
 		cfg.Entities = map[string]*Entity{}
 	}
+	// Before 1.1.0 the receiver listened on the address of a url kept here: its port stays.
+	var old struct {
+		URL string `json:"url"`
+	}
+	json.Unmarshal(data, &old)
+	if u, err := url.Parse(old.URL); cfg.Listen == "" && err == nil && u.Port() != "" {
+		if addr := net.JoinHostPort("0.0.0.0", u.Port()); addr != defaultListen {
+			cfg.Listen = addr
+		}
+	}
 	return cfg, nil
+}
+
+// updateConfig applies change to the config as it is on disk now: what another command saved meanwhile stays.
+func updateConfig(path string, change func(*Config) error) error {
+	cfg, err := loadConfig(path)
+	if err != nil {
+		return err
+	}
+	if err := change(cfg); err != nil {
+		return err
+	}
+	return saveConfig(path, cfg)
 }
 
 func saveConfig(path string, cfg *Config) error {

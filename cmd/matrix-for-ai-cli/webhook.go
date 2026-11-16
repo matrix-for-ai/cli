@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"path/filepath"
 	"sort"
+	"strings"
 )
 
 const webhookSubcommands = "create, delete or list"
@@ -34,6 +35,9 @@ func cmdWebhookCreate(configPath string, args []string) error {
 	if len(handler) == 0 {
 		return usageError(fs.Name(), "missing CMD")
 	}
+	if *webhookURL == "" {
+		return usageError(fs.Name(), "missing --url")
+	}
 	if *tokenFile == "" && *as == "" {
 		return usageError(fs.Name(), "missing --as or --token-file")
 	}
@@ -56,12 +60,6 @@ func cmdWebhookCreate(configPath string, args []string) error {
 	if tf, err = filepath.Abs(tf); err != nil {
 		return err
 	}
-	if *webhookURL != "" {
-		cfg.URL = *webhookURL
-	}
-	if cfg.URL == "" {
-		return usageError(fs.Name(), "missing --url: it is needed the first time")
-	}
 	e := &Entity{TokenFile: tf, OnNotice: handler}
 	base, token, mxid, err := appserviceCredentials(e)
 	if err != nil {
@@ -72,15 +70,14 @@ func cmdWebhookCreate(configPath string, args []string) error {
 			return err
 		}
 	}
-	if e.Secret, err = putWebhook(base, token, cfg.URL); err != nil {
+	if e.Secret, err = putWebhook(base, token, *webhookURL); err != nil {
 		return err
 	}
-	cfg.Entities[mxid] = e
-	if err := saveConfig(configPath, cfg); err != nil {
+	if err := updateConfig(configPath, func(cfg *Config) error { cfg.Entities[mxid] = e; return nil }); err != nil {
 		return fail(errPartial, "the appservice has the webhook but the secret could not be saved (run webhook create again): %w", err)
 	}
 	wake(configPath)
-	fmt.Printf("%s webhook → %s\n", mxid, cfg.URL)
+	fmt.Printf("%s webhook → %s\n", mxid, *webhookURL)
 	return nil
 }
 
@@ -103,8 +100,13 @@ func cmdWebhookDelete(configPath string, args []string) error {
 		return err
 	}
 	appserviceErr := deleteWebhook(base, token)
-	e.Secret, e.OnNotice = "", nil
-	if err := saveConfig(configPath, cfg); err != nil {
+	err = updateConfig(configPath, func(cfg *Config) error {
+		if e, ok := cfg.Entities[fs.Arg(0)]; ok {
+			e.Secret, e.OnNotice = "", nil
+		}
+		return nil
+	})
+	if err != nil {
 		return err
 	}
 	if appserviceErr != nil {
@@ -123,7 +125,6 @@ func cmdWebhookList(configPath string, args []string) error {
 	if err != nil {
 		return err
 	}
-	fmt.Printf("url: %s\n", cfg.URL)
 	names := make([]string, 0, len(cfg.Entities))
 	for n := range cfg.Entities {
 		names = append(names, n)
@@ -135,7 +136,20 @@ func cmdWebhookList(configPath string, args []string) error {
 			fmt.Printf("%s\ttoken: %s\tno webhook\n", n, e.TokenFile)
 			continue
 		}
-		fmt.Printf("%s\ttoken: %s\ton_notice: %v\n", n, e.TokenFile, e.OnNotice)
+		fmt.Printf("%s\ttoken: %s\ton_notice: %v\turl: %s\n", n, e.TokenFile, e.OnNotice, webhookURLOf(e))
 	}
 	return nil
+}
+
+// webhookURLOf is where the appservice sends this identity's notices, as it says.
+func webhookURLOf(e *Entity) string {
+	base, token, _, err := appserviceCredentials(e)
+	if err == nil {
+		var u string
+		if u, err = getWebhook(base, token); err == nil {
+			return u
+		}
+	}
+	problem, _, _ := strings.Cut(err.Error(), "\n")
+	return "unknown (" + problem + ")"
 }

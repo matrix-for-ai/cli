@@ -160,6 +160,8 @@ func fakeAppservice(t testing.TB, report func(string)) *httptest.Server {
 			var body struct{ URL string }
 			jsonBody(r, &body)
 			answer(w, 200, fmt.Sprintf(`{"url":%q,"secret":"s3cret"}`, body.URL))
+		case path == "/identities/me/webhook" && r.Method == http.MethodGet:
+			answer(w, 200, `{"url":"http://192.0.2.10:8794/"}`)
 		case path == "/identities/me/webhook":
 			w.WriteHeader(204)
 		case path == "/identities/me/avatar" && r.Method == http.MethodPut:

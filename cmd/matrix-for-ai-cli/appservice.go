@@ -32,6 +32,16 @@ func putWebhook(base, token, webhookURL string) (secret string, err error) {
 	return out.Secret, nil
 }
 
+func getWebhook(base, token string) (string, error) {
+	var out struct {
+		URL string `json:"url"`
+	}
+	if err := appserviceCall(http.MethodGet, base+"/identities/me/webhook", token, nil, &out); err != nil {
+		return "", err
+	}
+	return out.URL, nil
+}
+
 func deleteWebhook(base, token string) error {
 	return appserviceCall(http.MethodDelete, base+"/identities/me/webhook", token, nil, nil)
 }
