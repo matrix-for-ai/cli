@@ -1,0 +1,17 @@
+# the identity's policy keeps it from federating: the answer says so, with no error
+run channel create --name Local @alice:example.org
+
+== exit
+0
+== stdout
+{
+  "room": "!new:example.org",
+  "name": null,
+  "topic": null,
+  "direct": false,
+  "public": false,
+  "encrypted": true,
+  "federate": false,
+  "invited": []
+}
+== stderr

@@ -91,7 +91,32 @@ func fakeAppservice(t testing.TB, report func(string)) *httptest.Server {
 		case path == "/channels" && r.Method == http.MethodGet:
 			answer(w, 200, `{"channels":[{"room":"!r:example.org","encrypted":true,"unread":2,"last_unread":{"event_id":"$e","sender":"@alice:example.org","ts":1},"last_ts":1}],"next_cursor":null}`)
 		case path == "/channels":
-			answer(w, 201, `{"room":"!new:example.org","name":null,"topic":null,"direct":false,"public":false,"encrypted":true,"invited":[]}`)
+			var body struct {
+				Name     string
+				Invite   []string
+				Federate *bool
+			}
+			jsonBody(r, &body)
+			federate := body.Federate == nil || *body.Federate
+			for _, user := range body.Invite {
+				if strings.HasSuffix(user, ":banned.example") {
+					problem(w, 403, "server_not_allowed", "this identity may not talk to banned.example")
+					return
+				}
+				if !strings.HasSuffix(user, ":example.org") && !federate {
+					problem(w, 422, "invalid_federate", "federate is false and "+user+" is on another server")
+					return
+				}
+			}
+			if body.Name == "Old" && body.Federate != nil {
+				w.Header().Set(offContract, "an appservice older than 1.1.0, which has no federate")
+				problem(w, 422, "unknown_field", "unknown field: federate")
+				return
+			}
+			if body.Name == "Local" {
+				federate = false // this identity's federation policy
+			}
+			answer(w, 201, fmt.Sprintf(`{"room":"!new:example.org","name":null,"topic":null,"direct":false,"public":false,"encrypted":true,"federate":%t,"invited":[]}`, federate))
 		case room == "!notmine:example.org":
 			problem(w, 404, "not_member", "not a member of "+room)
 		case room == "!future:example.org":

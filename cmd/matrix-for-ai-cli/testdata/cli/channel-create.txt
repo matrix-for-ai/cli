@@ -10,6 +10,7 @@ run channel create @alice:example.org
   "direct": false,
   "public": false,
   "encrypted": true,
+  "federate": true,
   "invited": []
 }
 == stderr

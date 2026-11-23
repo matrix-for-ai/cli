@@ -17,7 +17,7 @@ jobs:
   e2e:
     runs-on: ubuntu-24.04
     env:
-      APPSERVICE_REF: d5adcd9f4e754ca724f4d890e05e11448d85d46c  # appservice 1.0.0, whose API this client speaks
+      APPSERVICE_REF: 1667a011ad9693ac3f968ce6e00450fb670d015c  # appservice 1.1.0, whose API this client speaks; its examples run that image
       COMPOSE_IMAGE: docker.io/library/docker@sha256:48678dab48932d2b9189040748f321d4eb09c90193bbf4f4b9b86d72cffd6e25  # Compose pinned, not the runner's
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1

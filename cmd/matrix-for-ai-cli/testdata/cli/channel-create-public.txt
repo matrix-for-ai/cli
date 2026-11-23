@@ -11,6 +11,7 @@ run channel create --public --name Lobby
   "direct": false,
   "public": false,
   "encrypted": true,
+  "federate": true,
   "invited": []
 }
 == stderr

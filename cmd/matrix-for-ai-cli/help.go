@@ -89,15 +89,17 @@ stdin (best for anything with quotes or newlines); text that starts with - goes 
 One event by ID, e.g. the one a reply_to points at, as the appservice gives it.
 `,
 	"channel": `channel list
-channel create [--name N] [--group] [--plain] USER...
-channel create --public [--name N] [--plain] [USER...]
+channel create [--name N] [--group] [--plain] [--no-federate] USER...
+channel create --public [--name N] [--plain] [--no-federate] [USER...]
 channel join|leave|members ROOM
 channel invite|kick ROOM USER
 
 Your channels. create makes a DM with one user, or a group with several users, --name or
 --group (a group with one user); encrypted unless --plain. A --public group is one anyone can
-join, with join ROOM; invitations need no join. list and members print all of
-them, every page; the others print the appservice's answer, and leave nothing. All take --as MXID.
+join, with join ROOM; invitations need no join. With --no-federate, only users of your
+homeserver can ever join it, for good; federate in the answer says what was applied, as the
+appservice may keep a channel from federating. list and members print all of them, every
+page; the others print the appservice's answer, and leave nothing. All take --as MXID.
 `,
 	"profile": `profile set [--as MXID] [--name N] [--avatar FILE] [--voice V] [--transcribe-audio true|false]
 

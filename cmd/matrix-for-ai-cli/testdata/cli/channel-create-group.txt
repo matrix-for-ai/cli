@@ -10,6 +10,7 @@ run channel create --name Team --plain @a:example.org @b:example.org
   "direct": false,
   "public": false,
   "encrypted": true,
+  "federate": true,
   "invited": []
 }
 == stderr

@@ -1,0 +1,10 @@
+# --no-federate against an appservice older than 1.1.0
+run channel create --no-federate --name Old @alice:example.org
+error appservice
+
+== exit
+1
+== stdout
+== stderr
+unknown field: federate (unknown_field)
+the appservice is older than this client and does not take a flag you used

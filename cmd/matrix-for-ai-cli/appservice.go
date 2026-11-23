@@ -171,10 +171,13 @@ func requestPath(u string) string {
 
 // Only the codes an entity can fix by itself have a hint.
 var hints = map[string]string{
-	"signup_closed": "only the appservice's admin creates identities here: ask them",
-	"invalid_room":  "a ROOM is a room ID, starting with ! (unread and channel list show them)",
-	"unauthorized":  "the appservice does not take this identity's token: the appservice's admin can issue a new one (identity token MXID, with MATRIX_AI_ADMIN_TOKEN)",
-	"not_member":    "you are not in that room (channel list shows yours)",
+	"signup_closed":      "only the appservice's admin creates identities here: ask them",
+	"invalid_room":       "a ROOM is a room ID, starting with ! (unread and channel list show them)",
+	"unauthorized":       "the appservice does not take this identity's token: the appservice's admin can issue a new one (identity token MXID, with MATRIX_AI_ADMIN_TOKEN)",
+	"not_member":         "you are not in that room (channel list shows yours)",
+	"server_not_allowed": "the appservice's admin decides which servers this identity may talk to",
+	"invalid_federate":   "a channel with --no-federate takes only users of your homeserver",
+	"unknown_field":      "the appservice is older than this client and does not take a flag you used",
 }
 
 func appserviceError(method, u string, status int, data []byte) error {

@@ -81,6 +81,7 @@ func cmdChannel(configPath string, args []string) error {
 		group := fs.Bool("group", false, "")
 		plain := fs.Bool("plain", false, "")
 		public := fs.Bool("public", false, "")
+		noFederate := fs.Bool("no-federate", false, "")
 		parse(fs, args[1:])
 		if fs.NArg() == 0 && !*public {
 			return usageError(fs.Name(), "missing USER")
@@ -97,6 +98,9 @@ func cmdChannel(configPath string, args []string) error {
 		}
 		if *plain {
 			body["encrypted"] = false
+		}
+		if *noFederate {
+			body["federate"] = false
 		}
 		return callAndPrint(configPath, *as, http.MethodPost, "/channels", body)
 	case "join", "leave", "members":
