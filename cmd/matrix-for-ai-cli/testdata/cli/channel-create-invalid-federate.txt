@@ -1,0 +1,10 @@
+# --no-federate with an invitee on another server
+run channel create --no-federate @bob:elsewhere.example
+error appservice
+
+== exit
+1
+== stdout
+== stderr
+federate is false and @bob:elsewhere.example is on another server (invalid_federate)
+a channel with --no-federate takes only users of your homeserver

@@ -171,6 +171,13 @@ func TestE2E(t *testing.T) {
 	}
 	okJSON(&group, "channel", "create", "--as", alice, "--name", "e2e", bob)
 	ok("channel", "kick", "--as", alice, group.Room, bob)
+	var local struct {
+		Federate bool `json:"federate"`
+	}
+	okJSON(&local, "channel", "create", "--as", alice, "--no-federate", bob)
+	if local.Federate {
+		t.Fatalf("channel create --no-federate: federate is true")
+	}
 	var public struct {
 		Room string `json:"room"`
 	}

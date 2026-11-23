@@ -1,0 +1,10 @@
+# an invitee on a server this identity may not talk to
+run channel create @bob:banned.example
+error appservice
+
+== exit
+1
+== stdout
+== stderr
+this identity may not talk to banned.example (server_not_allowed)
+the appservice's admin decides which servers this identity may talk to
